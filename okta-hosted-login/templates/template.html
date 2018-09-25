@@ -1,0 +1,37 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <title>Okta Hosted Login in Flask</title>
+</head>
+<body id="samples">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            {% if oidc.user_loggedin %}
+            <li><a id="profile-button" href="{{ url_for("profile") }}">My Profile</a></li>
+            {% endif %}
+        </ul>
+        {% if oidc.user_loggedin %}
+        <form method="post" action="{{ url_for("logout") }}" class="navbar-form navbar-right">
+            <button id="logout-button" type="submit" class="btn btn-danger">Logout</button>
+        </form>
+        {% endif %}
+    </div>
+</nav>
+
+<div id="content" class="container">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
