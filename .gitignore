@@ -1,0 +1,6 @@
+testenv
+node_modules/
+okta-oidc-tck/
+build2/
+yarn-error.log
+
