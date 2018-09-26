@@ -24,13 +24,13 @@
     "wait-on": "^2.0.2"
   },
   "scripts": {
-    "test": "",
+    "test": "echo \"Not implemented\" && exit 0",
     "okta-hosted-login-server": "cd okta-hosted-login && python main.py",
     "test:okta-hosted-login": "protractor okta-oidc-tck/e2e-tests/okta-hosted-login/conf.js",
-    "custom-login-server": "",
+    "custom-login-server": "echo \"Not implemented\" && exit 0",
     "setup-env": "node scripts/setup-env.js",
     "test:custom-login": "protractor okta-oidc-tck/e2e-tests/custom-login/conf.js",
-    "resource-server": "",
+    "resource-server": "echo \"Not implemented\" && exit 0",
     "test:resource-server": "jasmine okta-oidc-tck/resource-server/specs/okta-resource-server-spec.js",
     "pretest": "webdriver-manager update --gecko false"
   }

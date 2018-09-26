@@ -14,6 +14,7 @@ To run this application, you first need to clone this repo:
 
 ```bash
 git clone git@github.com:okta/samples-python-flask.git
+cd samples-python-flask
 ```
 
 Then install dependencies:
@@ -27,7 +28,7 @@ You also need to gather the following information from the Okta Developer Consol
 - **Client ID** and **Client Secret** - These can be found on the "General" tab of the Web application that you created earlier in the Okta Developer Console.
 - **Issuer** - This is the URL of the authorization server that will perform authentication.  All Developer Accounts have a "default" authorization server.  The issuer is a combination of your Org URL (found in the upper right of the console home page) and `/oauth2/default`. For example, `https://dev-1234.oktapreview.com/oauth2/default`.
 
-Now that you have the information from your organization that you need, open the `okta-hosted-login` directory. Copy the [`client_secrets.json.dist`](client_secrets.json.dist) to `client_secrets.json` and fill in the information you gathered.
+Now that you have the information needed from your organization, open the `okta-hosted-login` directory. Copy the [`client_secrets.json.dist`](client_secrets.json.dist) to `client_secrets.json` and fill in the information you gathered.
 
 ```json
 {
