@@ -8,12 +8,12 @@
   config.clientId = "0oagcqljz4IEpIDvx0h7";
   config.redirectUri = "http://localhost:8080/authorization-code/callback";
   config.logo = 'http://flask.pocoo.org/static/logo/flask.png';
-  config.scope = "openid profile"
   config.authParams = {
     issuer: "https://php.oktapreview.com/oauth2/default",
     responseType: 'code',
     state: '{{state}}',
-    display: 'page'
+    display: 'page',
+    scopes: ['openid', 'profile', 'email']
   };
   new OktaSignIn(config).renderEl(
     { el: '#sign-in-widget' },

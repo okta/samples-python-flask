@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/okta/samples-python-flask/issues"
   },
-  "homepage": "https://github.com/okta/samples-python-flask#readme",
+  "homepage": "https://github.com/okta/slet amples-python-flask#readme",
   "devDependencies": {
     "dotenv": "^5.0.1",
     "find-process": "^1.1.0",
