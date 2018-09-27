@@ -1,0 +1,25 @@
+{% extends "template.html" %}
+
+{% block content %}
+<h2>Custom Login + Flask Example</h2>
+
+{% if oidc.user_loggedin %}
+<div>
+    <p>Welcome back, <span></span>!</p>
+    <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>
+    <p>Visit the <a href="{{ url_for('profile') }}">My Profile</a> page in this application to view the information
+        retrieved with your OAuth Access Token.</p>
+</div>
+{% else %}
+<div>
+    <p>Hello!</p>
+    <p>If you're viewing this page then you have successfully configured and started this example server.</p>
+    <p>This example shows you how to to add the <a href="https://developer.okta.com/authentication-guide/implementing-authentication/auth-code.html">Authorization Code Flow</a> to your PHP application.</p>
+    <p>When you click the login button below, you will be redirected to the login page on your local application.</p>
+</div>
+
+<form method="get" action="login">
+    <button id="login-button" class="btn btn-primary" type="submit">Login</button>
+</form>
+{% endif %}
+{% endblock content %}
