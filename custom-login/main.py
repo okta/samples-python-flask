@@ -24,6 +24,8 @@ def home():
 
 @app.route("/login")
 def login():
+    bu = oidc.client_secrets['issuer'].split('/oauth2')[0]
+    cid = oidc.client_secrets['client_id']
 
     destination = 'http://localhost:8080/profile'
     state = {
@@ -31,8 +33,7 @@ def login():
         'destination': oidc.extra_data_serializer.dumps(destination).decode('utf-8')
     }
 
-    return render_template("login.html", oidc=oidc, state=base64.b64encode(json.dumps(state)))
-
+    return render_template("login.html", oidc=oidc, baseUri=bu, clientId=cid, state=base64.b64encode(json.dumps(state)))
 
 
 @app.route("/profile")
