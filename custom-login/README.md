@@ -1,4 +1,5 @@
 # Flask + Okta Hosted Login Example
+
 This example shows you how to use Flask to login to your application with a Custom Login page.  The login is achieved with the [Okta Sign In Widget][], which gives you more control to customize the login experience within your app.  After the user authenticates they are redirected back to the application with an authorization code that is then exchanged for an access token.
 
 ## Prerequisites
@@ -34,8 +35,8 @@ Now that you have the information needed from your organization, open the `okta-
 {
   "web": {
     "auth_uri": "https://{yourOktaDomain}/oauth2/default/v1/authorize",
-    "client_id": "{yourClientId}",
-    "client_secret": "{yourClientSecret}",
+    "client_id": "{clientId}",
+    "client_secret": "{clientSecret}",
     "redirect_uris": [
       "http://localhost:8080/authorization-code/callback"
     ],

@@ -46,6 +46,7 @@ def profile():
 @app.route("/logout", methods=["POST"])
 def logout():
     oidc.logout()
+
     return redirect(url_for("home"))
 
 
