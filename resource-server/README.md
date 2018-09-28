@@ -60,7 +60,7 @@ Next, Start the resource server example:
 python main.py
 ```
 
-Finally, install the [front-end sample project of your choice](Prerequisites) and run the sample application.
+Finally, install the [front-end sample project of your choice](#prerequisites) and run the sample application.
 Once the front-end sample is running, you can navigate to http://localhost:8080 in your browser and log in to the front-end application.  Once logged in, you can navigate to the "Messages" page to see the interaction with the resource server.
 
 
