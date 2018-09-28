@@ -24,14 +24,14 @@
     "wait-on": "^2.0.2"
   },
   "scripts": {
-    "test": "npm run test:e2e",
+    "test": "npm run test:e2e && npm run test:resource-server",
     "test:e2e": "npm run test:okta-hosted-login && npm run test:custom-login",
     "okta-hosted-login-server": "cd okta-hosted-login && python main.py",
     "test:okta-hosted-login": "protractor okta-oidc-tck/e2e-tests/okta-hosted-login/conf.js",
     "custom-login-server": "cd custom-login && python main.py",
     "setup-env": "node scripts/setup-env.js",
     "test:custom-login": "protractor okta-oidc-tck/e2e-tests/custom-login/conf.js",
-    "resource-server": "echo \"Not implemented\" && exit 0",
+    "resource-server": "cd resource-server && python main.py",
     "test:resource-server": "jasmine okta-oidc-tck/resource-server/specs/okta-resource-server-spec.js",
     "pretest": "webdriver-manager update --gecko false"
   }
