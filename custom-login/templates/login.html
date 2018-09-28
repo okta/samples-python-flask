@@ -1,0 +1,23 @@
+{% extends "template.html" %}
+
+{% block content %}
+<div id="sign-in-widget"></div>
+<script type="text/javascript">
+  new OktaSignIn({
+    baseUrl: "{{baseUri}}",
+    clientId: "{{clientId}}",
+    redirectUri: "http://localhost:8080/authorization-code/callback",
+    logo: 'http://flask.pocoo.org/static/logo/flask.png',
+    authParams: {
+      issuer: "{{baseUri}}/oauth2/default",
+      responseType: 'code',
+      state: '{{state}}',
+      display: 'page',
+      scopes: ['openid', 'profile', 'email']
+    }
+  }).renderEl(
+    { el: '#sign-in-widget' },
+    function (res) {}
+  );
+</script>
+{% endblock content %}
