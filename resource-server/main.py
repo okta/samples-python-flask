@@ -18,29 +18,27 @@ oidc = OpenIDConnect(app)
 
 @app.route("/")
 def home():
-    return "Please grab one of our front-end samples for use with this sample resource server"
+    return "Hello!  There's not much to see here." \
+           "Please grab one of our front-end samples for use with this sample resource server"
 
 
 @app.route("/api/messages")
 @oidc.accept_token(True)
 def messages():
-    api_response = []
+    response = {
+        'messages': [
+            {
+                'date': time.time(),
+                'text': 'I am a robot.'
+            },
+            {
+                'date': time.time()-3600,
+                'text': 'Hello, World!'
+            }
+        ]
+    }
 
-    messages = dict()
-
-    message1 = dict()
-    message1['date'] = time.time()
-    message1['text'] = 'I am a robot.'
-    api_response.append(message1)
-
-    message2 = dict()
-    message2['date'] = time.time()-3600
-    message2['text'] = 'Hello, World!'
-    api_response.append(message2)
-
-    messages["messages"] = api_response
-
-    return json.dumps(messages)
+    return json.dumps(response)
 
 
 if __name__ == '__main__':
