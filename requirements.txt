@@ -15,7 +15,7 @@ pyasn1==0.4.4
 pyasn1-modules==0.2.2
 PyJWT==1.4.2
 python-dotenv==0.9.1
-requests==2.19.1
+requests==2.20.0
 rsa==4.0
 six==1.11.0
 urllib3==1.23
