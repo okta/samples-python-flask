@@ -33,7 +33,7 @@ def login():
         'destination': oidc.extra_data_serializer.dumps(destination).decode('utf-8')
     }
 
-    return render_template("login.html", oidc=oidc, baseUri=bu, clientId=cid, state=base64.b64encode(json.dumps(state)))
+    return render_template("login.html", oidc=oidc, baseUri=bu, clientId=cid, state=base64_to_str(state))
 
 
 @app.route("/profile")
@@ -48,6 +48,10 @@ def logout():
     oidc.logout()
 
     return redirect(url_for("home"))
+
+
+def base64_to_str(data):
+    return str(base64.b64encode(json.dumps(data).encode('utf-8')), 'utf-8')
 
 
 if __name__ == '__main__':
