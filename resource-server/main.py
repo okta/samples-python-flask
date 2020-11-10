@@ -2,9 +2,11 @@ import json
 import time
 
 from flask import Flask, render_template, url_for, redirect
+from flask_cors import CORS
 from flask_oidc import OpenIDConnect
 
 app = Flask(__name__)
+CORS(app)
 app.config.update({
     'SECRET_KEY': 'SomethingNotEntirelySecret',
     'OIDC_CLIENT_SECRETS': './client_secrets.json',
