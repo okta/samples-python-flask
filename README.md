@@ -1,6 +1,8 @@
 # Flask Sample Applications for Okta
 This repository contains several sample applications that demonstrate various Okta use-cases in your Flask application.
 
+> Requires Python version 3.6.0 or higher.
+
 Please find the sample that fits your use-case from the table below.
 
 | Sample                                  | Description |
