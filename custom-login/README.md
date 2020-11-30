@@ -2,6 +2,8 @@
 
 This example shows you how to use Flask to login to your application with a Custom Login page.  The login is achieved with the [Okta Sign In Widget][], which gives you more control to customize the login experience within your app.  After the user authenticates they are redirected back to the application with an authorization code that is then exchanged for an access token.
 
+> Requires Python version 3.6.0 or higher.
+
 ## Prerequisites
 
 Before running this sample, you will need the following:

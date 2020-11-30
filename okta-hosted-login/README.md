@@ -1,6 +1,8 @@
 # Flask + Okta Hosted Login Example
 This example shows you how to use Flask to login to your application with an Okta Hosted Login page.  The login is achieved through the [authorization code flow](https://developer.okta.com/authentication-guide/implementing-authentication/auth-code), where the user is redirected to the Okta-Hosted login page.  After the user authenticates they are redirected back to the application with an access code that is then exchanged for an access token.
 
+> Requires Python version 3.6.0 or higher.
+
 ## Prerequisites
 
 Before running this sample, you will need the following:
