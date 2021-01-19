@@ -4,6 +4,8 @@ This sample application authenticates requests against your Flask application, u
 
 The access tokens are obtained via the [Implicit Flow][].  As such, you will need to use one of our front-end samples with this project.  It is the responsibility of the front-end to authenticate the user, then use the obtained access tokens to make requests to this resource server.
 
+> Requires Python version 3.6.0 or higher.
+
 ## Prerequisites
 
 Before running this sample, you will need the following:
