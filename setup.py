@@ -14,5 +14,5 @@ setup(
         ('Issue Tracker', 'https://github.com/okta/okta-python-flask/issues'),
     )),
     license='Apache-2.0',
-    python_requires='>2.7,'
+    python_requires='>3.7,'
 )

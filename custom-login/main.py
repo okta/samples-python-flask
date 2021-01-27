@@ -27,7 +27,7 @@ def login():
     bu = oidc.client_secrets['issuer'].split('/oauth2')[0]
     cid = oidc.client_secrets['client_id']
 
-    destination = 'http://localhost:8080/profile'
+    destination = 'http://localhost:8080/'
     state = {
         'csrf_token': session['oidc_csrf_token'],
         'destination': oidc.extra_data_serializer.dumps(destination).decode('utf-8')

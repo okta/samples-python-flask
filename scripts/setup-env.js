@@ -22,8 +22,8 @@ const path = require('path');
 require('dotenv').config({path: path.join(__dirname, '..', 'testenv')});
 
 function updateConfig(directory) {
-  if (!process.env.ISSUER || !process.env.CLIENT_ID || !process.env.CLIENT_SECRET || !process.env.USERNAME || !process.env.PASSWORD) {
-    console.log('[ERROR] Please set the necessary Environment variables (ISSUER, CLIENT_ID, CLIENT_SECRET, USERNAME, PASSWORD)');
+  if (!process.env.ISSUER || !process.env.CLIENT_ID || !process.env.CLIENT_SECRET || !process.env.USER_NAME || !process.env.PASSWORD) {
+    console.log('[ERROR] Please set the necessary Environment variables (ISSUER, CLIENT_ID, CLIENT_SECRET, USER_NAME, PASSWORD)');
     process.exit(1);
   }
 
@@ -42,8 +42,26 @@ function updateConfig(directory) {
 
   let result = data.replace(/CLIENT_ID=/g, `CLIENT_ID=${clientId}`);
   result = result.replace(/CLIENT_SECRET=/g, `CLIENT_SECRET=${process.env.CLIENT_SECRET}`);
-  result = result.replace(/ISSUER=https:\/\/{yourOktaDomain}.com\/oauth2\/default/g, `ISSUER=${process.env.ISSUER}/`);
+  result = result.replace(/ISSUER=https:\/\/{yourOktaDomain}\/oauth2\/default/g, `ISSUER=${process.env.ISSUER}/`);
   fs.writeFileSync(envFile, result, 'utf8');
+
+  const clientsecrets = path.join(directory, 'client_secrets.json');
+  const clientSecretsData = fs.readFileSync(clientsecrets, 'utf8');
+
+  let clientSecretsClientId = process.env.CLIENT_ID;
+  // For resource server, we need to set client_id of SPA in .env
+  if (directory.includes('resource-server')) {
+    if (!process.env.SPA_CLIENT_ID) {
+      console.error('[ERROR] Please set the SPA_CLIENT_ID for resource-server tests');
+      process.exit(1);
+    }
+    clientSecretsClientId = process.env.SPA_CLIENT_ID;
+  }
+
+  let clientSecretsResult = clientSecretsData.replace(/{{CLIENT_ID}}/g, `${clientSecretsClientId}`);
+  clientSecretsResult = clientSecretsResult.replace(/{{CLIENT_SECRET}}/g, `${process.env.CLIENT_SECRET}`);
+  clientSecretsResult = clientSecretsResult.replace(/https:\/\/{{OKTA_DOMAIN}}\/oauth2\/default\/?/g, `${process.env.ISSUER}/`);
+  fs.writeFileSync(clientsecrets, clientSecretsResult, 'utf8');
 }
 
 function updateAllConfigs() {
@@ -54,6 +72,10 @@ function updateAllConfigs() {
   copyAndUpdateConfig(oktaHostedLoginDir);
   copyAndUpdateConfig(customLoginDir);
   copyAndUpdateConfig(resourceServerDir);
+
+  copyAndUpdateClientSecrets(oktaHostedLoginDir);
+  copyAndUpdateClientSecrets(customLoginDir);
+  copyAndUpdateClientSecrets(resourceServerDir);
 }
 
 function cloneRepository(repository, directory) {
@@ -71,15 +93,37 @@ function cloneRepository(repository, directory) {
 
 function copyAndUpdateConfig(directory) {
   const envFile = path.join(directory, '.env');
+  const clientsecrets = path.join(directory, 'client_secrets.json');
 
   if (fs.existsSync(envFile)) {
     console.log(`.env file already exists in ${directory}`);
     return;
   }
 
+  if (fs.existsSync(clientsecrets)) {
+    console.log(`client_secrets.json file already exists in ${directory}`);
+    return;
+  }
+
   const copyCommand = process.platform === 'win32'? 'copy' : 'cp';
 
   execSync(`${copyCommand} ${path.join(directory, '.env.dist')} ${path.join(directory, '.env')}`);
+  execSync(`${copyCommand} ${path.join(directory, 'client_secrets.json.dist')} ${path.join(directory, 'client_secrets.json')}`);
+
+  updateConfig(directory);
+}
+
+function copyAndUpdateClientSecrets(directory) {
+  const clientsecrets = path.join(directory, 'client_secrets.json');
+
+  if (fs.existsSync(clientsecrets)) {
+    console.log(`client_secrets.json file already exists in ${directory}`);
+    return;
+  }
+
+  const copyCommand = process.platform === 'win32'? 'copy' : 'cp';
+
+  execSync(`${copyCommand} ${path.join(directory, 'client_secrets.json.dist')} ${path.join(directory, 'client_secrets.json')}`);
 
   updateConfig(directory);
 }
