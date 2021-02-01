@@ -7,10 +7,10 @@
     baseUrl: "{{baseUri}}",
     clientId: "{{clientId}}",
     redirectUri: "http://localhost:8080/authorization-code/callback",
-    logo: 'http://flask.pocoo.org/static/logo/flask.png',
     authParams: {
       issuer: "{{baseUri}}/oauth2/default",
       responseType: 'code',
+      pkce: false,
       state: '{{state}}',
       display: 'page',
       scopes: ['openid', 'profile', 'email']

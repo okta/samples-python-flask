@@ -21,7 +21,7 @@ def home():
 @app.route("/login")
 @oidc.require_login
 def login():
-    return redirect(url_for("profile"))
+    return redirect(url_for("home"))
 
 
 @app.route("/profile")

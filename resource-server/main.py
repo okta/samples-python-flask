@@ -12,7 +12,8 @@ app.config.update({
     'OIDC_CLIENT_SECRETS': './client_secrets.json',
     'OIDC_ID_TOKEN_COOKIE_SECURE': False,
     'OIDC_SCOPES': ["openid", "profile", "email"],
-    'OIDC_CALLBACK_ROUTE': '/authorization-code/callback'
+    'OIDC_CALLBACK_ROUTE': '/authorization-code/callback',
+    'OIDC_RESOURCE_SERVER_ONLY': True
 })
 
 oidc = OpenIDConnect(app)
