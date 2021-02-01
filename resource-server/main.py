@@ -26,7 +26,7 @@ def home():
 
 
 @app.route("/api/messages")
-@oidc.accept_token(True)
+@oidc.accept_token(require_token=True, scopes_required=["openid", "profile", "email"], render_errors=False)
 def messages():
     response = {
         'messages': [
