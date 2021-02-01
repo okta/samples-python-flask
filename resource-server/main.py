@@ -1,9 +1,13 @@
+import asyncio
 import json
 import time
 
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, request
 from flask_cors import CORS
 from flask_oidc import OpenIDConnect
+
+from okta_jwt_verifier import JWTVerifier
+
 
 app = Flask(__name__)
 CORS(app)
@@ -16,7 +20,33 @@ app.config.update({
     'OIDC_RESOURCE_SERVER_ONLY': True
 })
 
+
+loop = asyncio.get_event_loop()
+
+
+async def is_valid_token(request):
+    """Gets token from request headers and validate it.
+
+    Token is inside Authorization header: 'Authorization': 'Bearer {TOKEN}'
+    """
+    token = request.headers.get('Authorization').split()[1]
+    client_secrets = json.load(open('./client_secrets.json'))
+    client_id = client_secrets['web']['client_id']
+    issuer = client_secrets['web']['issuer']
+    jwt_verifier = JWTVerifier(issuer, client_id)
+    try:
+        await jwt_verifier.verify_access_token(token)
+    except Exception:
+        return False
+    return True
+
+
+def patched_validate_token(token, *args, **kwargs):
+    return loop.run_until_complete(is_valid_token(request))
+
+
 oidc = OpenIDConnect(app)
+oidc.validate_token = patched_validate_token
 
 
 @app.route("/")
@@ -26,7 +56,7 @@ def home():
 
 
 @app.route("/api/messages")
-@oidc.accept_token(require_token=True, scopes_required=["openid", "profile", "email"], render_errors=False)
+@oidc.accept_token(require_token=True)
 def messages():
     response = {
         'messages': [
