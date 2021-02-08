@@ -3,7 +3,7 @@
 {% block content %}
 <div>
     <h2>My Profile</h2>
-    <p>Hello, <span>{{ profile.email }}</span>. Below is the information that was read with your <a
+    <p>Hello, <span>{{ user.email }}</span>. Below is the information that was read with your <a
             href="https://developer.okta.com/docs/api/resources/oidc.html#get-user-information"
             target="_blank">Access Token</a>.
     </p>
@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for key, claim in profile.items() %}
+    {% for key, claim in user.claims() %}
     <tr>
         <td>{{ key }}</td>
         <td id="claim-{{ key }}">

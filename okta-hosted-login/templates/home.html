@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Okta Hosted Login + Flask Example</h2>
 
-{% if oidc.user_loggedin %}
+{% if current_user.is_authenticated %}
 <div>
     <p>Welcome back, <span></span>!</p>
     <p>You have successfully authenticated against your Okta org, and have been redirected back to this application.</p>

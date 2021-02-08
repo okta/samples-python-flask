@@ -18,11 +18,11 @@
     <div class="container-fluid">
         <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
-            {% if oidc.user_loggedin %}
+            {% if current_user.is_authenticated %}
             <li><a id="profile-button" href="{{ url_for("profile") }}">My Profile</a></li>
             {% endif %}
         </ul>
-        {% if oidc.user_loggedin %}
+        {% if current_user.is_authenticated %}
         <form method="post" action="{{ url_for("logout") }}" class="navbar-form navbar-right">
             <button id="logout-button" type="submit" class="btn btn-danger">Logout</button>
         </form>
