@@ -1,21 +1,26 @@
 import json
 import time
 
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, request
 from flask_cors import CORS
-from flask_oidc import OpenIDConnect
+
+from helpers import is_access_token_valid, config
+
 
 app = Flask(__name__)
 CORS(app)
 app.config.update({
     'SECRET_KEY': 'SomethingNotEntirelySecret',
-    'OIDC_CLIENT_SECRETS': './client_secrets.json',
-    'OIDC_ID_TOKEN_COOKIE_SECURE': False,
-    'OIDC_SCOPES': ["openid", "profile", "email"],
-    'OIDC_CALLBACK_ROUTE': '/authorization-code/callback'
 })
 
-oidc = OpenIDConnect(app)
+
+def is_authorized(request):
+    """Get access token from authorization header."""
+    try:
+        token = request.headers.get("Authorization").split("Bearer ")[1]
+        return is_access_token_valid(token, config["issuer"], config["client_id"])
+    except Exception:
+        return False
 
 
 @app.route("/")
@@ -25,8 +30,10 @@ def home():
 
 
 @app.route("/api/messages")
-@oidc.accept_token(True)
 def messages():
+    if not is_authorized(request):
+        return "Unauthorized", 401
+
     response = {
         'messages': [
             {
