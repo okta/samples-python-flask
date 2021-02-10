@@ -13,7 +13,8 @@
       responseType: 'code',
       state: '{{state}}',
       display: 'page',
-      scopes: ['openid', 'profile', 'email']
+      scopes: ['openid', 'profile', 'email'],
+      nonce: '{{nonce}}'
     }
   }).renderEl(
     { el: '#sign-in-widget' },
